@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-dashboard-widget-github-actions",
-  "version": "1.0.1",
+  "version": "0.1",
   "description": "Sanity Studio Dashboard Widget for triggering Github actions",
   "keywords": [
     "sanity",
@@ -16,7 +16,7 @@
     "dist",
     "sanity.json"
   ],
-  "author": "Sanity.io <hello@sanity.io>",
+  "author": "Jacob Hanson <jacdx5000@gmail.com>",
   "repository": {
     "type": "git",
     "url": ""
