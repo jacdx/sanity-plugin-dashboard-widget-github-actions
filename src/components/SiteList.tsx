@@ -1,6 +1,6 @@
 import Spinner from 'part:@sanity/components/loading/spinner'
 import React from 'react'
-import styles from './NetlifyWidget.css'
+import styles from './GithubActionsWidget.css'
 import { DeployAction, Site } from '../types'
 import SiteItem from './SiteItem'
 

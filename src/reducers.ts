@@ -45,7 +45,8 @@ export const stateReducer$ = scan((state: State, action: Action) => {
             return { ...site, error: action.error }
           }
           return site
-        })
+        }),
+        requestSuccessful: true
       }
     default:
       return state

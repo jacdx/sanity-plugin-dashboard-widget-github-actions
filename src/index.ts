@@ -1,7 +1,7 @@
 import Widget from './Widget'
 
 export default {
-  name: 'netlify',
+  name: 'github-actions',
   component: Widget,
   layout: { width: 'medium' }
 }

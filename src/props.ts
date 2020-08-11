@@ -8,7 +8,7 @@ import { stateReducer$ } from './reducers'
 const noop = () => void 0
 
 const INITIAL_PROPS = {
-  title: 'Netlify sites',
+  title: 'Sites',
   sites: [],
   isLoading: true,
   onDeploy: noop
@@ -19,9 +19,12 @@ export const props$ = (options: WidgetOptions) => {
     id: site.apiId,
     name: site.name,
     title: site.title,
-    buildHookId: site.buildHookId,
-    url: site.name && `https://${site.name}.netlify.com/`,
-    adminUrl: site.name && `https://app.netlify.com/sites/${site.name}`
+    url: site.url,
+    githubToken: site.githubToken,
+    githubRepo: site.githubRepo,
+    githubRepoOwner: site.githubRepoOwner,
+    eventType: site.eventType,
+    eventPayload: site.eventPayload
   }))
   const [onDeploy$, onDeploy] = createEventHandler<Site>()
   const setSitesAction$ = of(sites).pipe(map(sites => ({ type: 'setSites', sites })))

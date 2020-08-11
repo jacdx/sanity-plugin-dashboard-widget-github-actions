@@ -9,41 +9,44 @@ interface Props {
 }
 
 export default class SiteItem extends React.Component<Props> {
-  private badge = React.createRef<HTMLImageElement>()
-  private imgInterval?: any
 
-  componentDidMount() {
-    this.imgInterval = window.setInterval(() => {
-      this.updateImage()
-    }, 10000)
-  }
+
+  // private badge = React.createRef<HTMLImageElement>()
+  // private imgInterval?: any
+
+  // componentDidMount() {
+  //   this.imgInterval = window.setInterval(() => {
+  //     this.updateImage()
+  //   }, 10000)
+  // }
 
   componentWillUnmount() {
-    window.clearInterval(this.imgInterval)
+    // window.clearInterval(this.imgInterval)
   }
 
   handleDeployButtonClicked = (_: MouseEvent) => {
-    this.props.onDeploy(this.props.site)
-    setTimeout(() => {
-      this.updateImage()
-    }, 1000)
+    this.props.onDeploy(this.props.site);
+
+    // setTimeout(() => {
+    //   this.updateImage()
+    // }, 1000)
   }
 
-  private getImageUrl() {
-    const { site } = this.props
-    return `https://api.netlify.com/api/v1/badges/${site.id}/deploy-status`
-  }
-
-  private updateImage() {
-    const image = this.badge && this.badge.current
-    if (image) {
-      image.src = `${this.getImageUrl()}?${new Date().getTime()}`
-    }
-  }
+  // private getImageUrl() {
+  //   const { site } = this.props
+  //   return `https://api.netlify.com/api/v1/badges/${site.id}/deploy-status`
+  // }
+  //
+  // private updateImage() {
+  //   const image = this.badge && this.badge.current
+  //   if (image) {
+  //     image.src = `${this.getImageUrl()}?${new Date().getTime()}`
+  //   }
+  // }
 
   private renderLinks() {
     const { site } = this.props
-    if (!(site.url || site.adminUrl)) {
+    if (!site.url) {
       return null
     }
     return (
@@ -51,12 +54,7 @@ export default class SiteItem extends React.Component<Props> {
         {' ('}
         {site.url && (
           <span>
-            <a href={site.url}>view</a>
-          </span>
-        )}
-        {site.adminUrl && (
-          <span>
-            , <a href={site.adminUrl}>admin</a>
+            <a href={site.url} target={'blank'}>view</a>
           </span>
         )}
         {')'}
@@ -74,16 +72,14 @@ export default class SiteItem extends React.Component<Props> {
             {this.renderLinks()}
           </h4>
           <div>
-            <img src={this.getImageUrl()} ref={this.badge} />
+            {/*  <img src={this.getImageUrl()} ref={this.badge} />*/}
           </div>
         </div>
-        {site.buildHookId && (
-          <div className={styles.actions}>
-            <DefaultButton inverted onClick={this.handleDeployButtonClicked}>
-              Deploy
-            </DefaultButton>
-          </div>
-        )}
+        <div className={styles.actions}>
+          <DefaultButton inverted onClick={this.handleDeployButtonClicked}>
+            Deploy
+          </DefaultButton>
+        </div>
       </li>
     )
   }

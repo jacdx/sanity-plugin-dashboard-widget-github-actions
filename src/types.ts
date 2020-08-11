@@ -2,8 +2,12 @@ export interface SiteWidgetOption {
   apiId: string
   name?: string
   title: string
-  buildHookId: string
-  hostname?: string
+  url?: string
+  githubRepo: string
+  githubRepoOwner: string
+  githubToken: string
+  eventType: string
+  eventPayload?: string
 }
 export interface WidgetOptions {
   title?: string
@@ -12,12 +16,15 @@ export interface WidgetOptions {
 }
 
 export interface Site {
+  id: string
   title: string
   name?: string
-  id: string
   url?: string
-  adminUrl?: string
-  buildHookId: string
+  githubToken: string
+  githubRepo: string
+  githubRepoOwner: string
+  eventType: string
+  eventPayload?: string
 }
 
 export interface Props {

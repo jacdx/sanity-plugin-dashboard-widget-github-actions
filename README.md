@@ -1,6 +1,6 @@
-# Sanity Dashboard Widget: Netlify
+# Sanity Dashboard Widget: Github Actions
 
-Sanity Studio Dashboard Widget for triggering Netlify builds.
+Sanity Studio Dashboard Widget for triggering Github Actions.
 
 ## Installing
 
@@ -9,9 +9,9 @@ To get dashboard support in Sanity Studio in general:
 
 `sanity install @sanity/dashboard`
 
-### Install the Netlify widget plugin
+### Install the Github Actions widget plugin
 
-`sanity install dashboard-widget-netlify`
+`sanity install dashboard-widget-github-actions`
 
 ## Configuring
 
@@ -24,28 +24,32 @@ To get dashboard support in Sanity Studio in general:
   }
   ```
 
-2. Create the file `src/dashboardConfig.js` and inlcude the `netlify` widget config like this:
+2. Create the file `src/dashboardConfig.js` and include the `github-actions` widget config like this:
 
   ```js
   export default {
     widgets: [
         {
-        name: 'netlify',
+        name: 'github-actions',
         options: {
-          title: 'My Netlify deploys',
-          sites: [
+        title: 'My Github Actions deploys',
+        sites: [
             {
-              title: 'Sanity Studio',
-              apiId: 'xxxxx-yyyy-zzzz-xxxx-yyyyyyyy',
-              buildHookId: 'xxxyyyxxxyyyyxxxyyy',
-              name: 'sanity-gatsby-blog-20-studio',
+                title: 'Staging',
+                githubRepo: 'myrepo',
+                githubRepoOwner: 'myrepoowner',
+                githubToken: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+                eventType: 'deploy-web-staging',
+                url: 'https://staging.yoursite.com'
             },
             {
-              title: 'Website',
-              apiId: 'yyyyy-xxxxx-zzzz-xxxx-yyyyyyyy',
-              buildHookId: 'yyyyxxxxxyyyxxdxxx',
-              name: 'sanity-gatsby-blog-20-web'
-            }
+                title: 'Production',
+                githubRepo: 'myrepo',
+                githubRepoOwner: 'myrepoowner',
+                githubToken: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+                eventType: 'deploy-web-production',
+                url: 'https://www.yoursite.com'
+            },
           ]
         }
       }
@@ -55,12 +59,23 @@ To get dashboard support in Sanity Studio in general:
 ### Widget options
 `title` - Override the widget default title
 
-`sites[]` - Your Netlify sites to show deploys for
-  - `apiId`- The Netfliy API id of your site (see *Settings > General/Site Details >  Site Information Box*).
-  - `buildHookId` - The id of a build hook you have created for your site within the Netlify administration panel (see *Settings > Continous Deployment*).
-  - `title` - Override the site name with a custom title
-  - `name` - The Netlify site name
+`sites[]` - Your Github Actions sites to show deploys for
+  - `title` - Site title
+  - `githubRepo` - Name of the Github repo that contains the github action
+  - `githubRepoOwner` - Name of the Github repo owner 
+  - `githubToken` - Github personal acces**s token, with `repo` privileges ([Docs](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)) 
+  - `eventType` - Event type, specified in the `repository_dispatch` block of your Github Action workflow file. Example below.
+  - `eventPayload` - JSON string event payload. If specified, it will be passed to the Github Action event  
+  
 
+## Github Action workflow: event type example
+```yaml
+on:
+  repository_dispatch:
+    types: deploy-web-staging
+```  
+  
+  
 ## Developing on this module
 
 To simulate using your development version as a real module inside a studio, you can do the following:
@@ -73,14 +88,14 @@ To simulate using your development version as a real module inside a studio, you
 **With the mono-repo's `test-studio`:**
 
   * Bootstrap the monorepo: `npm run bootstrap`
-  * Add `sanity-plugin-dashboard-widget-netlify` with the current version number to `package.json` in the `test-studio` root folder (but don't run `npm install` afterwards)
-  * Run `npm link sanity-plugin-dashboard-widget-netlify` inside the mono-repo's root.
+  * Add `sanity-plugin-dashboard-widget-github-actions` with the current version number to `package.json` in the `test-studio` root folder (but don't run `npm install` afterwards)
+  * Run `npm link sanity-plugin-dashboard-widget-github-actions` inside the mono-repo's root.
   * Restart the `test-studio`
 
 **With a regular Sanity Studio:**
   * Run `npm install`
-  * Add `sanity-plugin-dashboard-widget-netlify` with the current version number to `package.json`.
-  * Run `npm link sanity-plugin-dashboard-widget-netlify`
+  * Add `sanity-plugin-dashboard-widget-github-actions` with the current version number to `package.json`.
+  * Run `npm link sanity-plugin-dashboard-widget-github-actions`
   * Start the studio
 
-When you are done and have published your new version, you can run `npm unlink` inside this repo, and `npm unlink sanity-plugin-dashboard-widget-netlify` inside the mono-repo or studio to get back to the normal state. Then run `npm run bootstrap` for the mono-repo or `npm install` inside the regular studio to use the published version.
+When you are done and have published your new version, you can run `npm unlink` inside this repo, and `npm unlink sanity-plugin-dashboard-widget-github-actions` inside the mono-repo or studio to get back to the normal state. Then run `npm run bootstrap` for the mono-repo or `npm install` inside the regular studio to use the published version.
