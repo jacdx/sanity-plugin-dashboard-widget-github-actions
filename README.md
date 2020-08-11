@@ -1,6 +1,12 @@
 # Sanity Dashboard Widget: Github Actions
 
-Sanity Studio Dashboard Widget for triggering Github Actions.
+Sanity Studio Dashboard Widget for triggering Github Actions. Implementation is very basic, sending a request to Github via their webhook API, which doesn't make it easy to check status. If request fails, you'll see an error. If successful, it's silent.
+
+TODO: 
+1. User feedback on request status per SiteItem  
+2. Figure out how to track status of the Action, so we can see when the Action is complete
+
+PRs welcome
 
 ## Installing
 
