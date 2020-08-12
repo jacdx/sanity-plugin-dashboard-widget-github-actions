@@ -1,5 +1,5 @@
 {
-  "name": "sanity-plugin-dashboard-widget-github-actions",
+  "name": "@jacdx/sanity-plugin-dashboard-widget-github-actions",
   "version": "0.1.0",
   "description": "Sanity Studio Dashboard Widget for triggering Github actions",
   "keywords": [
@@ -29,9 +29,9 @@
     "access": "public"
   },
   "bugs": {
-    "url": "https://github.com/sanity-io/sanity-plugin-dashboard-widget-github-actions/issues"
+    "url": "https://github.com/jacdx/sanity-plugin-dashboard-widget-github-actions/issues"
   },
-  "homepage": "https://github.com/sanity-io/sanity-plugin-dashboard-widget-github-actions#readme",
+  "homepage": "https://github.com/jacdx/sanity-plugin-dashboard-widget-github-actions#readme",
   "scripts": {
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
@@ -128,5 +128,9 @@
   "dependencies": {
     "abort-controller": "^2.0.3",
     "react-props-stream": "^1.0.0"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
   }
 }
